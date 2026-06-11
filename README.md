@@ -17,7 +17,7 @@ docker compose up -d
 | `SSH_HOST` | — | SSH 服务器地址 (**必填**) |
 | `SSH_PORT` | `22` | SSH 端口 |
 | `SSH_USER` | `root` | SSH 用户名 |
-| `SOCKS_PORT` | `1080` | 本地 SOCKS5 代理端口 |
+| `SOCKS_PORT` | `1280` | 本地 SOCKS5 代理端口 |
 | `SSH_KEY_PATH` | `~/.ssh/id_rsa` | SSH 私钥路径 |
 | `SSH_KNOWN_HOSTS` | `~/.ssh/known_hosts` | known_hosts 文件路径 |
 | `SERVER_ALIVE_INTERVAL` | `30` | 保活间隔（秒） |
@@ -32,5 +32,5 @@ docker compose up -d
 代理运行在 `127.0.0.1:${SOCKS_PORT}`，例如：
 
 ```bash
-curl --socks5 127.0.0.1:1080 https://example.com
+curl --socks5-hostname localhost:1280 ip.fm
 ```
