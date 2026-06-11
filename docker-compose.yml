@@ -1,0 +1,27 @@
+services:
+  autossh-socks5:
+    build: .
+    container_name: autossh-socks5
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${SOCKS_PORT:-1280}:${SOCKS_PORT:-1280}"
+    environment:
+      - SSH_HOST=${SSH_HOST}
+      - SSH_PORT=${SSH_PORT:-22}
+      - SSH_USER=${SSH_USER:-root}
+      - SOCKS_PORT=${SOCKS_PORT:-1280}
+      - SERVER_ALIVE_INTERVAL=${SERVER_ALIVE_INTERVAL:-30}
+      - SERVER_ALIVE_COUNT_MAX=${SERVER_ALIVE_COUNT_MAX:-3}
+      - STRICT_HOST_KEY_CHECKING=${STRICT_HOST_KEY_CHECKING:-accept-new}
+      - AUTOSSH_GATETIME=${AUTOSSH_GATETIME:-60}
+      - AUTOSSH_MAXSTART=${AUTOSSH_MAXSTART:-10}
+      - SSH_EXTRA_OPTS=${SSH_EXTRA_OPTS:-}
+    volumes:
+      - ${SSH_KEY_PATH:-~/.ssh/id_rsa}:/root/.ssh/id_rsa:ro
+      - ${SSH_KNOWN_HOSTS:-~/.ssh/known_hosts}:/root/.ssh/known_hosts
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    driver: bridge
