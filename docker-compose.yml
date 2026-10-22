@@ -20,8 +20,9 @@ services:
       - ${SSH_KEY_PATH:-~/.ssh/id_rsa}:/root/.ssh/id_rsa:ro
       - ${SSH_KNOWN_HOSTS:-~/.ssh/known_hosts}:/root/.ssh/known_hosts
     networks:
-      - proxy
+      npm-network:
+        ipv4_address: 172.30.0.252  # 在这里指定静态 IP
 
 networks:
-  proxy:
-    driver: bridge
+  npm-network:
+    external: true
